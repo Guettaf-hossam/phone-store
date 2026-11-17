@@ -32,12 +32,6 @@ function AppContent() {
       <SiteHeader />
       <main>
         <Hero />
-        <SignalSection onSelectBrand={(brand) => {
-          filters.setSelectedCategory(brand);
-          filters.setSelectedCondition('Tous les états');
-          const cat = document.getElementById('catalogue');
-          cat?.scrollIntoView({ behavior: 'smooth' });
-        }} />
         <CatalogSection
           products={filters.filteredProducts}
           searchQuery={filters.searchQuery}
@@ -51,6 +45,12 @@ function AppContent() {
           onResetFilters={filters.resetFilters}
           onSelectProduct={setSelectedProduct}
         />
+        <SignalSection onSelectBrand={(brand) => {
+          filters.setSelectedCategory(brand);
+          filters.setSelectedCondition('Tous les états');
+          const cat = document.getElementById('catalogue');
+          cat?.scrollIntoView({ behavior: 'smooth' });
+        }} />
         <ScanModes
           onSelectConditionFilter={(condition) => filters.setSelectedCondition(condition)}
           onSelectBrandFilter={(brand) => filters.setSelectedCategory(brand)}
