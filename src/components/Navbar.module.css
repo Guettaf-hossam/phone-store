@@ -1,0 +1,231 @@
+/* ============================================================
+   src/components/Navbar.module.css
+   ============================================================ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
+  /* Crisp top-border accent stripe */
+  box-shadow: inset 0 3px 0 0 var(--color-brand);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-lg);
+  height: 100%;
+}
+
+/* ---- Logo ---- */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.logoFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2.5px solid var(--color-brand);
+  border-radius: 10px;
+  background-color: var(--color-brand);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.logoPhoneIcon {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logoTextPlanet {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+}
+
+.logoTextPhone {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-primary);
+}
+
+/* ---- Search ---- */
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  justify-self: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--color-ink-faint);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  width: 100%;
+  height: 42px;
+  padding: 0 var(--space-md) 0 42px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-ink-primary);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.searchInput::placeholder {
+  color: var(--color-ink-faint);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px var(--color-brand-light);
+}
+
+.searchClearBtn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.searchClearBtn:hover {
+  background: var(--color-border-strong);
+}
+
+/* ---- Actions ---- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.whatsappBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 var(--space-md);
+  height: 40px;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.whatsappBtn:hover {
+  background-color: var(--color-brand-dark);
+  transform: translateY(-1px);
+}
+
+.whatsappBtn:active {
+  transform: translateY(0);
+}
+
+.whatsappIcon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink-muted);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.socialLink:hover {
+  color: var(--color-ink-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Mobile tweaks ---- */
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-md);
+  }
+
+  .whatsappBtn span {
+    display: none;
+  }
+
+  .whatsappBtn {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .searchWrapper {
+    max-width: 100%;
+  }
+
+  .logoTextPhone {
+    font-size: 15px;
+  }
+
+  .logoTextPlanet {
+    display: none;
+  }
+}

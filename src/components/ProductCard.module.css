@@ -1,0 +1,296 @@
+/* ============================================================
+   src/components/ProductCard.module.css
+   ============================================================ */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.18s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: var(--color-border-strong);
+}
+
+/* ---- Image pane ---- */
+.imagePane {
+  position: relative;
+  height: 200px;
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: #fafbfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.productImage {
+  max-height: 170px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(15, 23, 42, 0.12));
+  transition: transform 0.3s ease;
+}
+
+.card:hover .productImage {
+  transform: scale(1.03);
+}
+
+.imagePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-ink-faint);
+}
+
+.imagePlaceholder svg {
+  width: 42px;
+  height: 42px;
+  opacity: 0.35;
+}
+
+/* Badges row — absolutely positioned top-left */
+.badgeRow {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conditionBadge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.warrantyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.warrantyBadge svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+/* Top-right: featured star */
+.featuredPin {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background: #fef3c7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* ---- Body ---- */
+.body {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.brandLabel {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.modelName {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink-primary);
+  line-height: 1.25;
+  margin-top: 2px;
+}
+
+.specSummary {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Color swatches row */
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: var(--space-sm);
+}
+
+.colorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  flex-shrink: 0;
+}
+
+.moreColors {
+  font-size: 11px;
+  color: var(--color-ink-faint);
+}
+
+/* Stock indicator */
+.stockRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: var(--space-sm);
+}
+
+.stockDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stockLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* ---- Footer ---- */
+.footer {
+  padding: var(--space-md);
+  padding-top: 0;
+  margin-top: auto;
+}
+
+.priceRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.priceFrom {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+.priceValue {
+  font-family: 'Inter', var(--font-sans);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-primary);
+  line-height: 1;
+}
+
+.ctaRow {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.btnDetails {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s, transform 0.1s;
+  letter-spacing: 0.01em;
+}
+
+.btnDetails:hover {
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
+}
+
+.btnDetails:active {
+  transform: translateY(0);
+}
+
+.btnDetails svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btnWa {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.btnWa:hover {
+  background: #bbf7d0;
+  transform: translateY(-1px);
+}
+
+.btnWa:active {
+  transform: translateY(0);
+}
+
+.btnWa svg {
+  width: 17px;
+  height: 17px;
+}
