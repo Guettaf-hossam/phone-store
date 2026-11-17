@@ -70,6 +70,8 @@ export function Footer() {
           </div>
         </div>
 
+        <div className={styles.editorialWordmark}>PLANET PHONE</div>
+
         <div className={styles.bottomBar}>
           <span>© {new Date().getFullYear()} PLANET PHONE BOUIRA. Tous droits réservés.</span>
           <span>Bazar Dubai • Rue Frères Boussendalah</span>

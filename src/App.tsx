@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CatalogSection } from './components/CatalogSection';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
@@ -8,10 +8,20 @@ import { OrderModal } from './components/OrderModal';
 import { TradeInSection } from './components/TradeInSection';
 import { PRODUCTS } from './data/products';
 import { useCatalogFilter } from './hooks/useCatalogFilter';
+import { fetchStoreProducts } from './lib/supabase';
 import { Product } from './types';
 
 export function App() {
+  const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    fetchStoreProducts().then((data) => {
+      if (data && data.length > 0) {
+        setProducts(data);
+      }
+    });
+  }, []);
 
   const {
     searchQuery,
@@ -24,9 +34,9 @@ export function App() {
     setOnlyInStock,
     filteredProducts,
     resetFilters
-  } = useCatalogFilter(PRODUCTS);
+  } = useCatalogFilter(products);
 
-  const featuredProduct = PRODUCTS.find((p) => p.featured) ?? PRODUCTS[0];
+  const featuredProduct = products.find((p) => p.featured) ?? products[0];
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { MapPin, MessageCircle, Search, Smartphone } from 'lucide-react';
+import { MessageCircle, Search, Smartphone } from 'lucide-react';
 import { STORE_INFO } from '../data/store';
 import { buildWhatsAppUrl } from '../utils/formatting';
 import styles from './Navbar.module.css';
@@ -16,73 +16,45 @@ export function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
 
   return (
     <header className={styles.header}>
-      <div className={styles.topStrip}>
-        <div className={`container ${styles.topStripInner}`}>
-          <span className={styles.locationBadge}>
-            <MapPin size={13} />
-            {STORE_INFO.address}
+      <nav className={styles.pillNav}>
+        <a href="#" className={styles.brand}>
+          <span className={styles.mark}>
+            <Smartphone size={16} />
           </span>
-          <span>{STORE_INFO.hours}</span>
-        </div>
-      </div>
+          <strong className={styles.brandTitle}>
+            Planet<span>Phone</span>
+          </strong>
+        </a>
 
-      <div className="container">
-        <div className={styles.mainNav}>
-          <a href="#" className={styles.brand}>
-            <div className={styles.logoBox}>
-              <Smartphone size={20} />
-            </div>
-            <div className={styles.brandText}>
-              <span className={styles.brandTitle}>
-                PLANET <span>PHONE</span>
-              </span>
-              <span className={styles.brandSub}>BOUIRA • BAZAR DUBAI</span>
-            </div>
+        <div className={styles.searchWrapper}>
+          <Search size={15} className={styles.searchIcon} />
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="iPhone 16 Pro, S24 Ultra, Redmi..."
+            className={styles.searchInput}
+            aria-label="Rechercher un appareil"
+          />
+        </div>
+
+        <div className={styles.actions}>
+          <div className={styles.navLinks}>
+            <a href="#catalogue">Catalogue</a>
+            <a href="#reprise">Reprise</a>
+            <a href="#ooredoo">Ooredoo</a>
+          </div>
+          <a
+            href={directChatUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.ctaPill}
+          >
+            <MessageCircle size={15} />
+            <span>{STORE_INFO.phoneDisplay}</span>
           </a>
-
-          <div className={styles.searchWrapper}>
-            <Search size={17} className={styles.searchIcon} />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Rechercher iPhone 15, S24 Ultra, Redmi, Watch..."
-              className={styles.searchInput}
-              aria-label="Rechercher un produit"
-            />
-          </div>
-
-          <div className={styles.actions}>
-            <a
-              href={STORE_INFO.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.socialLink}
-              aria-label="Instagram Planet Phone"
-            >
-              IG
-            </a>
-            <a
-              href={STORE_INFO.facebookUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.socialLink}
-              aria-label="Facebook Planet Phone"
-            >
-              FB
-            </a>
-            <a
-              href={directChatUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.whatsappBtn}
-            >
-              <MessageCircle size={17} />
-              <span>{STORE_INFO.phoneDisplay}</span>
-            </a>
-          </div>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

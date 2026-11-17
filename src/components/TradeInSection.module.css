@@ -1,60 +1,61 @@
 .section {
-  padding: 40px 0;
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  padding: 72px 0;
+  background: var(--bg-dark);
+  color: #ffffff;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 28px;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 36px;
   align-items: center;
 }
 
 .badge {
   display: inline-block;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: var(--brand-red-soft);
-  color: var(--brand-red);
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: rgba(217, 35, 46, 0.18);
+  color: #fca5a5;
   font-size: 12px;
-  font-weight: 800;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
 .title {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 10px;
+  font-size: clamp(28px, 3.6vw, 40px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  margin-bottom: 14px;
 }
 
 .desc {
-  font-size: 14px;
-  color: var(--ink-muted);
-  margin-bottom: 16px;
+  font-size: 15px;
+  color: #a1a1aa;
+  margin-bottom: 22px;
 }
 
 .steps {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
+  gap: 10px;
+  font-size: 14px;
+  color: #e4e4e7;
 }
 
 .formCard {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--bg-dark-card);
+  border: 1px solid #2c2c2e;
+  border-radius: 24px;
+  padding: 24px;
 }
 
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .fullWidth {
@@ -64,33 +65,42 @@
 .label {
   display: block;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 500;
+  color: #a1a1aa;
   margin-bottom: 6px;
 }
 
 .input,
 .select {
   width: 100%;
-  min-height: 44px;
-  padding: 0 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--bg-secondary);
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid #3a3a3c;
+  border-radius: 12px;
+  background: #141416;
+  color: #ffffff;
   font-size: 14px;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--brand-red);
 }
 
 .submitBtn {
   width: 100%;
-  min-height: 46px;
-  border-radius: 8px;
+  height: 48px;
+  border-radius: 99px;
   background: var(--brand-red);
   color: #ffffff;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: background 0.15s ease;
 }
 
 .submitBtn:hover {

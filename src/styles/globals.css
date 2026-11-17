@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --border-color: #e2e8f0;
-  --ink-primary: #0f172a;
-  --ink-muted: #475569;
+  --bg-secondary: #f5f5f7;
+  --bg-dark: #111111;
+  --bg-dark-card: #1d1d1f;
+  --border-color: #e5e5ea;
+  --ink-primary: #111111;
+  --ink-muted: #6e6e73;
   --brand-red: #d9232e;
   --brand-red-dark: #b91c26;
   --brand-red-soft: #fef2f2;
@@ -25,9 +27,10 @@ html {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-primary);
   color: var(--ink-primary);
+  letter-spacing: -0.03em;
   line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -45,14 +48,12 @@ a {
 }
 
 .container {
-  width: 100%;
-  max-width: 1240px;
+  width: min(1140px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 0 16px;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 24px;
+    width: min(1140px, calc(100% - 48px));
   }
 }
