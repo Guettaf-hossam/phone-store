@@ -1,134 +1,52 @@
-// ============================================================
-// src/hooks/useCatalogFilter.ts
-// Reactive filter + search state for the catalog
-// ============================================================
+import { useMemo, useState } from 'react';
+import { Product, ProductCategory, ProductCondition } from '../types';
 
-import { useState, useMemo, useCallback } from 'react';
-import { CATALOG } from '@/data/catalog';
-import type { ShelfCategory, ConditionTag, CatalogItem } from '@/data/catalog';
+export function useCatalogFilter(products: Product[]) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('Tout');
+  const [selectedCondition, setSelectedCondition] = useState<'Tous les états' | ProductCondition>('Tous les états');
+  const [onlyInStock, setOnlyInStock] = useState(false);
 
-export type SortMode = 'featured' | 'price_asc' | 'price_desc' | 'newest';
-export type AvailFilter = 'all' | 'in_stock';
+  const filteredProducts = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-interface FilterState {
-  shelf: ShelfCategory | 'Tout';
-  condition: ConditionTag | 'Tous les états';
-  availability: AvailFilter;
-  query: string;
-  sort: SortMode;
-}
+    return products.filter((product) => {
+      const matchesCategory =
+        selectedCategory === 'Tout' || product.brand === selectedCategory;
 
-function normalize(s: string) {
-  return s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-}
+      const matchesCondition =
+        selectedCondition === 'Tous les états' || product.condition === selectedCondition;
 
-export function useCatalogFilter(externalQuery?: string) {
-  const [filters, setFilters] = useState<FilterState>({
-    shelf: 'Tout',
-    condition: 'Tous les états',
-    availability: 'all',
-    query: '',
-    sort: 'featured',
-  });
+      const matchesStock = !onlyInStock || product.inStock;
 
-  // Merge external search query (from Navbar) into local state
-  const effectiveQuery = externalQuery ?? filters.query;
+      const matchesQuery =
+        query.length === 0 ||
+        product.name.toLowerCase().includes(query) ||
+        product.brand.toLowerCase().includes(query) ||
+        product.specs.toLowerCase().includes(query) ||
+        product.condition.toLowerCase().includes(query);
 
-  const setShelf = useCallback(
-    (shelf: FilterState['shelf']) => setFilters((f) => ({ ...f, shelf })),
-    []
-  );
-  const setCondition = useCallback(
-    (condition: FilterState['condition']) =>
-      setFilters((f) => ({ ...f, condition })),
-    []
-  );
-  const setAvailability = useCallback(
-    (availability: AvailFilter) =>
-      setFilters((f) => ({ ...f, availability })),
-    []
-  );
-  const setSort = useCallback(
-    (sort: SortMode) => setFilters((f) => ({ ...f, sort })),
-    []
-  );
-  const setQuery = useCallback(
-    (query: string) => setFilters((f) => ({ ...f, query })),
-    []
-  );
-
-  const results = useMemo<CatalogItem[]>(() => {
-    const q = normalize(effectiveQuery.trim());
-
-    let items = CATALOG.filter((item) => {
-      // Shelf filter
-      if (filters.shelf !== 'Tout' && item.shelf !== filters.shelf) return false;
-
-      // Condition filter
-      if (
-        filters.condition !== 'Tous les états' &&
-        item.condition !== filters.condition
-      )
-        return false;
-
-      // Availability filter
-      if (filters.availability === 'in_stock') {
-        const hasStock = item.storageOptions.some(
-          (v) => v.stock === 'in_stock' || v.stock === 'low_stock'
-        );
-        if (!hasStock) return false;
-      }
-
-      // Full-text search
-      if (q) {
-        const hay = normalize(
-          [
-            item.brand,
-            item.model,
-            item.shelf,
-            item.tagline,
-            item.specSummary,
-            item.condition,
-            item.colors.map((c) => c.name).join(' '),
-          ].join(' ')
-        );
-        if (!hay.includes(q)) return false;
-      }
-
-      return true;
+      return matchesCategory && matchesCondition && matchesStock && matchesQuery;
     });
+  }, [products, searchQuery, selectedCategory, selectedCondition, onlyInStock]);
 
-    // Sort
-    switch (filters.sort) {
-      case 'price_asc':
-        items = [...items].sort((a, b) => a.basePriceDA - b.basePriceDA);
-        break;
-      case 'price_desc':
-        items = [...items].sort((a, b) => b.basePriceDA - a.basePriceDA);
-        break;
-      case 'featured':
-        items = [...items].sort(
-          (a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0)
-        );
-        break;
-      default:
-        break;
-    }
-
-    return items;
-  }, [filters, effectiveQuery]);
+  const resetFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory('Tout');
+    setSelectedCondition('Tous les états');
+    setOnlyInStock(false);
+  };
 
   return {
-    filters,
-    results,
-    totalCount: CATALOG.length,
-    setShelf,
-    setCondition,
-    setAvailability,
-    setSort,
-    setQuery,
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    selectedCondition,
+    setSelectedCondition,
+    onlyInStock,
+    setOnlyInStock,
+    filteredProducts,
+    resetFilters
   };
 }

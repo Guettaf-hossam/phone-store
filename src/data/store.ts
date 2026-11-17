@@ -1,22 +1,14 @@
-// ============================================================
-// src/data/store.ts
-// Real store metadata for Planet Phone, Bouira
-// ============================================================
-
-import type { StoreInfo } from '@/types';
+import { StoreInfo } from '../types';
 
 export const STORE_INFO: StoreInfo = {
   name: 'PLANET PHONE',
-  tagline: 'Votre Référence Smartphone & Mobile à Bouira',
-  address: {
-    street: 'Rue Frères Boussendalah',
-    district: 'Bazar Dubai, La Cité Ouest',
-    city: 'Bouira',
-    wilaya: 'Bouira (10)',
-  },
-  phone: '0550 15 12 93',
-  whatsapp: '213550151293',
-  instagram: 'planet_phone10',
-  facebook: 'PlanetPhonee',
-  workingHours: 'Lun – Sam : 09h00 – 20h00',
+  arabicName: 'بلانت فون',
+  tagline: 'Vente Téléphones Mobiles, Smart Watches, Accessoires & Services Ooredoo',
+  phoneDisplay: '0550 15 12 93',
+  whatsappNumber: '213550151293',
+  address: 'Bazar Dubai, Rue Frères Boussendalah (La Cité Ouest), Bouira',
+  mapsUrl: 'https://www.google.com/maps/place/Plan%C3%A8te+phone+bouira/@36.3761267,3.8921885,20z',
+  facebookUrl: 'https://www.facebook.com/PlanetPhonee/',
+  instagramUrl: 'https://www.instagram.com/planet_phone10/',
+  hours: 'Samedi – Jeudi : 09h00 – 20h00'
 };

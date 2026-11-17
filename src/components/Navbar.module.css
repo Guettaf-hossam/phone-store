@@ -1,231 +1,169 @@
-/* ============================================================
-   src/components/Navbar.module.css
-   ============================================================ */
-
-.navbar {
+.header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  height: var(--navbar-height);
-  background-color: var(--color-bg-primary);
-  border-bottom: 1px solid var(--color-border);
-  /* Crisp top-border accent stripe */
-  box-shadow: inset 0 3px 0 0 var(--color-brand);
+  z-index: 40;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+.topStrip {
+  background: var(--ink-primary);
+  color: #ffffff;
+  font-size: 12px;
+  padding: 6px 0;
+}
+
+.topStripInner {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--space-lg);
-  height: 100%;
+  gap: 12px;
 }
 
-/* ---- Logo ---- */
-.logo {
+.locationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #e2e8f0;
+}
+
+.mainNav {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  user-select: none;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  flex-wrap: wrap;
 }
 
-.logoFrame {
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoBox {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--brand-red);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 2.5px solid var(--color-brand);
-  border-radius: 10px;
-  background-color: var(--color-brand);
-  position: relative;
   flex-shrink: 0;
 }
 
-.logoPhoneIcon {
-  width: 18px;
-  height: 18px;
-  color: #ffffff;
-}
-
-.logoText {
+.brandText {
   display: flex;
   flex-direction: column;
-  line-height: 1;
 }
 
-.logoTextPlanet {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--color-ink-muted);
-  text-transform: uppercase;
-}
-
-.logoTextPhone {
-  font-size: 17px;
+.brandTitle {
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--color-ink-primary);
+  line-height: 1.1;
+  color: var(--ink-primary);
 }
 
-/* ---- Search ---- */
+.brandTitle span {
+  color: var(--brand-red);
+}
+
+.brandSub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
 .searchWrapper {
   position: relative;
-  width: 100%;
-  max-width: 520px;
-  justify-self: center;
+  flex: 1;
+  min-width: 240px;
+  max-width: 440px;
 }
 
 .searchIcon {
   position: absolute;
-  left: 14px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  color: var(--color-ink-faint);
+  color: var(--ink-muted);
   pointer-events: none;
-  flex-shrink: 0;
 }
 
 .searchInput {
   width: 100%;
-  height: 42px;
-  padding: 0 var(--space-md) 0 42px;
+  min-height: 44px;
+  padding: 0 14px 0 38px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
   font-size: 14px;
-  font-weight: 400;
-  color: var(--color-ink-primary);
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.searchInput::placeholder {
-  color: var(--color-ink-faint);
+  color: var(--ink-primary);
+  transition: border-color 0.15s ease;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--color-brand);
-  box-shadow: 0 0 0 3px var(--color-brand-light);
+  border-color: var(--brand-red);
+  background: #ffffff;
 }
 
-.searchClearBtn {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--color-border);
-  color: var(--color-ink-muted);
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.searchClearBtn:hover {
-  background: var(--color-border-strong);
-}
-
-/* ---- Actions ---- */
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  flex-shrink: 0;
-}
-
-.whatsappBtn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0 var(--space-md);
-  height: 40px;
-  background-color: var(--color-brand);
-  color: #ffffff;
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  border-radius: var(--radius-md);
-  transition: background-color 0.15s ease, transform 0.1s ease;
-  white-space: nowrap;
-}
-
-.whatsappBtn:hover {
-  background-color: var(--color-brand-dark);
-  transform: translateY(-1px);
-}
-
-.whatsappBtn:active {
-  transform: translateY(0);
-}
-
-.whatsappIcon {
-  width: 17px;
-  height: 17px;
-  flex-shrink: 0;
-}
-
-.socialLinks {
-  display: flex;
-  align-items: center;
-  gap: 2px;
+  gap: 8px;
 }
 
 .socialLink {
-  display: flex;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  color: var(--color-ink-muted);
-  transition: color 0.15s, background-color 0.15s;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  background: var(--bg-primary);
+  transition: border-color 0.15s ease;
 }
 
 .socialLink:hover {
-  color: var(--color-ink-primary);
-  background-color: var(--color-bg-secondary);
+  border-color: var(--brand-red);
+  color: var(--brand-red);
 }
 
-.socialLink svg {
-  width: 18px;
-  height: 18px;
+.whatsappBtn {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--brand-red);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: background 0.15s ease;
 }
 
-/* ---- Mobile tweaks ---- */
-@media (max-width: 900px) {
-  .inner {
-    grid-template-columns: auto 1fr auto;
-    gap: var(--space-md);
-  }
-
-  .whatsappBtn span {
-    display: none;
-  }
-
-  .whatsappBtn {
-    padding: 0 12px;
-  }
+.whatsappBtn:hover {
+  background: var(--brand-red-dark);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .searchWrapper {
+    order: 3;
     max-width: 100%;
+    flex-basis: 100%;
   }
 
-  .logoTextPhone {
-    font-size: 15px;
-  }
-
-  .logoTextPlanet {
+  .topStrip {
     display: none;
   }
 }

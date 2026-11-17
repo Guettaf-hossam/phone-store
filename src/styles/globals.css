@@ -1,54 +1,19 @@
-/* ============================================================
-   src/styles/globals.css
-   Planet Phone — Swiss Hardware Grid Design System
-   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-/* ---------- Design Tokens ---------- */
 :root {
-  /* Palette */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
-  --color-ink-primary: #0f172a;
-  --color-ink-secondary: #1e293b;
-  --color-ink-muted: #475569;
-  --color-ink-faint: #94a3b8;
-  --color-brand: #d9232e;
-  --color-brand-dark: #b91c26;
-  --color-brand-light: #fee2e3;
-  --color-brand-surface: #fff1f1;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-
-  /* Typography */
-  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', 'JetBrains Mono', monospace;
-  --font-arabic: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', sans-serif;
-
-  /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
-  --space-2xl: 64px;
-
-  /* Layout */
-  --max-width: 1280px;
-  --navbar-height: 64px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-
-  /* Shadows — crisp, no diffuse blur */
-  --shadow-card: 0 1px 3px 0 rgb(15 23 42 / 0.06), 0 1px 2px -1px rgb(15 23 42 / 0.04);
-  --shadow-card-hover: 0 4px 12px 0 rgb(15 23 42 / 0.10), 0 2px 4px -1px rgb(15 23 42 / 0.06);
-  --shadow-dropdown: 0 8px 24px 0 rgb(15 23 42 / 0.12);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --border-color: #e2e8f0;
+  --ink-primary: #0f172a;
+  --ink-muted: #475569;
+  --brand-red: #d9232e;
+  --brand-red-dark: #b91c26;
+  --brand-red-soft: #fef2f2;
+  --whatsapp-green: #16a34a;
+  --whatsapp-green-dark: #15803d;
 }
 
-/* ---------- Reset ---------- */
-*, *::before, *::after {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -56,17 +21,22 @@
 
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--color-ink-primary);
-  background-color: var(--color-bg-primary);
+  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--ink-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
 }
 
 a {
@@ -74,52 +44,15 @@ a {
   text-decoration: none;
 }
 
-img, svg {
-  display: block;
-  max-width: 100%;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-input, textarea, select {
-  font-family: inherit;
-}
-
-/* ---------- Utility Classes ---------- */
 .container {
   width: 100%;
-  max-width: var(--max-width);
-  margin-inline: auto;
-  padding-inline: var(--space-lg);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .container {
-    padding-inline: var(--space-md);
+    padding: 0 24px;
   }
-}
-
-/* Focus ring — accessible */
-:focus-visible {
-  outline: 2px solid var(--color-brand);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-/* Visually hidden */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
 }

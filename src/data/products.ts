@@ -1,221 +1,218 @@
-// ============================================================
-// src/data/products.ts
-// Seed catalog — real Algerian market models & DZD pricing
-// ============================================================
+import { Product, ProductCategory, ProductCondition } from '../types';
 
-import type { Product } from '@/types';
+export const CATEGORIES: ProductCategory[] = [
+  'Tout',
+  'Apple',
+  'Samsung',
+  'Redmi',
+  'Realme',
+  'Smart Watch',
+  'Accessoires'
+];
+
+export const CONDITIONS: ('Tous les états' | ProductCondition)[] = [
+  'Tous les états',
+  'Neuf Scellé',
+  'Cabas Garanti',
+  'Occasion Certifiée'
+];
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'iphone-15-pro-max-256',
-    slug: 'apple-iphone-15-pro-max-256gb',
-    name: 'iPhone 15 Pro Max',
+    id: 'iphone-16-pro-max',
+    name: 'iPhone 16 Pro Max',
     brand: 'Apple',
-    model: '15 Pro Max',
-    category: 'smartphone',
-    condition: 'new_sealed',
-    isFeatured: true,
-    isNewArrival: false,
-    tagline: 'Titane. Puce A17 Pro. Zoom 5×.',
-    basePriceDA: 229_000,
-    stock: 'in_stock',
-    images: [
-      {
-        url: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009284541',
-        alt: 'iPhone 15 Pro Max — Titane Naturel',
-        isPrimary: true,
-      },
+    condition: 'Neuf Scellé',
+    priceDzd: 298000,
+    oldPriceDzd: 310000,
+    storages: ['256GB', '512GB', '1TB'],
+    colors: [
+      { name: 'Titane Désert', hex: '#C5B4A0' },
+      { name: 'Titane Noir', hex: '#1E1E1F' },
+      { name: 'Titane Naturel', hex: '#9A9892' }
     ],
-    specs: [
-      { label: 'Écran', value: '6.7" Super Retina XDR OLED, 120 Hz' },
-      { label: 'Puce', value: 'Apple A17 Pro (3 nm)' },
-      { label: 'RAM', value: '8 Go' },
-      { label: 'Caméra', value: '48 MP + 12 MP Téléobjectif 5× + 12 MP UW' },
-      { label: 'Batterie', value: '4 422 mAh' },
-      { label: 'OS', value: 'iOS 17' },
-      { label: 'Réseau', value: '5G' },
-    ],
-    variants: [
-      {
-        id: 'iph15pm-256-naturel',
-        storage: '256 Go',
-        colorName: 'Titane Naturel',
-        colorHex: '#B5A898',
-        priceDA: 229_000,
-        stock: 'in_stock',
-      },
-      {
-        id: 'iph15pm-256-noir',
-        storage: '256 Go',
-        colorName: 'Titane Noir',
-        colorHex: '#3D3935',
-        priceDA: 229_000,
-        stock: 'in_stock',
-      },
-      {
-        id: 'iph15pm-512-naturel',
-        storage: '512 Go',
-        colorName: 'Titane Naturel',
-        colorHex: '#B5A898',
-        priceDA: 269_000,
-        stock: 'low_stock',
-      },
-    ],
-    tags: ['apple', 'iphone', '5g', 'pro', 'featured'],
-    createdAt: '2024-10-01T00:00:00Z',
+    specs: 'A18 Pro • Écran 6.9" 120Hz • Caméra 48MP',
+    warranty: 'Garantie 12 Mois + Facture',
+    inStock: true,
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'samsung-s24-ultra-256',
-    slug: 'samsung-galaxy-s24-ultra-256gb',
+    id: 'iphone-15-pro',
+    name: 'iPhone 15 Pro',
+    brand: 'Apple',
+    condition: 'Cabas Garanti',
+    priceDzd: 218000,
+    storages: ['128GB', '256GB'],
+    colors: [
+      { name: 'Titane Bleu', hex: '#2F3B4C' },
+      { name: 'Titane Naturel', hex: '#9A9892' }
+    ],
+    specs: 'Batterie 96% • État 10/10 • Sans boîte',
+    warranty: 'Garantie Magasin 3 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'iphone-13',
+    name: 'iPhone 13',
+    brand: 'Apple',
+    condition: 'Occasion Certifiée',
+    priceDzd: 114000,
+    oldPriceDzd: 120000,
+    storages: ['128GB', '256GB'],
+    colors: [
+      { name: 'Minuit', hex: '#191F26' },
+      { name: 'Lumière Stellaire', hex: '#F3EFEA' }
+    ],
+    specs: 'Batterie 89% • Pièces d’origine • Testé 30 points',
+    warranty: 'Garantie Magasin 45 Jours',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'samsung-s24-ultra',
     name: 'Samsung Galaxy S24 Ultra',
     brand: 'Samsung',
-    model: 'Galaxy S24 Ultra',
-    category: 'smartphone',
-    condition: 'new_sealed',
-    isFeatured: true,
-    isNewArrival: true,
-    tagline: 'Zoom 100×. S Pen intégré. Galaxy AI.',
-    basePriceDA: 215_000,
-    stock: 'in_stock',
-    images: [
-      {
-        url: 'https://images.samsung.com/is/image/samsung/p6pim/africa_fr/2401/gallery/africa-fr-galaxy-s24-ultra-s928-sm-s928bzadeub-thumb-539117054',
-        alt: 'Samsung Galaxy S24 Ultra — Titanium Gray',
-        isPrimary: true,
-      },
+    condition: 'Neuf Scellé',
+    priceDzd: 234000,
+    storages: ['256GB', '512GB'],
+    colors: [
+      { name: 'Titanium Gray', hex: '#7E7B76' },
+      { name: 'Titanium Black', hex: '#222325' }
     ],
-    specs: [
-      { label: 'Écran', value: '6.8" Dynamic AMOLED 2X, 120 Hz, 2600 nits' },
-      { label: 'Puce', value: 'Snapdragon 8 Gen 3' },
-      { label: 'RAM', value: '12 Go' },
-      { label: 'Caméra', value: '200 MP + Téléobjectif 50 MP + 10 MP + 12 MP UW' },
-      { label: 'Batterie', value: '5 000 mAh, 45 W' },
-      { label: 'OS', value: 'Android 14 / One UI 6.1' },
-      { label: 'Stylet', value: 'S Pen intégré' },
-    ],
-    variants: [
-      {
-        id: 's24u-256-gray',
-        storage: '256 Go',
-        ram: '12 Go',
-        colorName: 'Titanium Gray',
-        colorHex: '#828282',
-        priceDA: 215_000,
-        stock: 'in_stock',
-      },
-      {
-        id: 's24u-512-black',
-        storage: '512 Go',
-        ram: '12 Go',
-        colorName: 'Titanium Black',
-        colorHex: '#1C1C1C',
-        priceDA: 249_000,
-        stock: 'low_stock',
-      },
-    ],
-    tags: ['samsung', 'galaxy', 's24', 'ultra', '5g', 'featured'],
-    createdAt: '2024-02-01T00:00:00Z',
+    specs: '12GB RAM • Snapdragon 8 Gen 3 • S-Pen inclus',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'xiaomi-redmi-note-13-pro-256',
-    slug: 'xiaomi-redmi-note-13-pro-256gb',
-    name: 'Redmi Note 13 Pro+',
-    brand: 'Xiaomi',
-    model: 'Redmi Note 13 Pro+',
-    category: 'smartphone',
-    condition: 'new_sealed',
-    isFeatured: false,
-    isNewArrival: true,
-    tagline: '200 MP. Charge 120 W. 5G abordable.',
-    basePriceDA: 62_000,
-    stock: 'in_stock',
-    images: [
-      {
-        url: 'https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-plus/f1b1c8d3-1c7f-4e56-a2c8-3c3faf3c0e14.png',
-        alt: 'Redmi Note 13 Pro+ — Aurora Purple',
-        isPrimary: true,
-      },
+    id: 'samsung-a55-5g',
+    name: 'Samsung Galaxy A55 5G',
+    brand: 'Samsung',
+    condition: 'Neuf Scellé',
+    priceDzd: 68500,
+    oldPriceDzd: 72000,
+    storages: ['128GB', '256GB'],
+    colors: [
+      { name: 'Awesome Navy', hex: '#1E293B' },
+      { name: 'Awesome Iceblue', hex: '#CBD5E1' }
     ],
-    specs: [
-      { label: 'Écran', value: '6.67" AMOLED, 120 Hz, 1800 nits' },
-      { label: 'Puce', value: 'MediaTek Dimensity 7200 Ultra' },
-      { label: 'RAM', value: '12 Go' },
-      { label: 'Caméra', value: '200 MP + 8 MP UW + 2 MP Macro' },
-      { label: 'Batterie', value: '5 000 mAh, 120 W HyperCharge' },
-      { label: 'OS', value: 'Android 13 / MIUI 14' },
-    ],
-    variants: [
-      {
-        id: 'rn13pro-256-purple',
-        storage: '256 Go',
-        ram: '12 Go',
-        colorName: 'Aurora Purple',
-        colorHex: '#7B6FA0',
-        priceDA: 62_000,
-        stock: 'in_stock',
-      },
-      {
-        id: 'rn13pro-256-black',
-        storage: '256 Go',
-        ram: '12 Go',
-        colorName: 'Midnight Black',
-        colorHex: '#1A1A1A',
-        priceDA: 62_000,
-        stock: 'in_stock',
-      },
-    ],
-    tags: ['xiaomi', 'redmi', 'note', '5g', '200mp'],
-    createdAt: '2024-03-15T00:00:00Z',
+    specs: '8GB RAM • Super AMOLED 120Hz • IP67',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'apple-watch-series-9-41',
-    slug: 'apple-watch-series-9-41mm',
-    name: 'Apple Watch Series 9',
-    brand: 'Apple',
-    model: 'Watch Series 9',
-    category: 'smartwatch',
-    condition: 'new_sealed',
-    isFeatured: false,
-    isNewArrival: false,
-    tagline: 'Double Tap. Chip S9. Always-On.',
-    basePriceDA: 68_000,
-    stock: 'in_stock',
-    images: [
-      {
-        url: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MR9Q3ref_VW_34FR+watch-45-alum-midnight-nc-9s_VW_34FR_WF_CO?wid=1400&hei=1400',
-        alt: 'Apple Watch Series 9 41mm',
-        isPrimary: true,
-      },
+    id: 'redmi-note-13-pro-plus',
+    name: 'Redmi Note 13 Pro+ 5G',
+    brand: 'Redmi',
+    condition: 'Neuf Scellé',
+    priceDzd: 63500,
+    storages: ['256GB', '512GB'],
+    colors: [
+      { name: 'Midnight Black', hex: '#18181B' },
+      { name: 'Moonlight White', hex: '#F1F5F9' }
     ],
-    specs: [
-      { label: 'Boîtier', value: '41 mm Aluminium' },
-      { label: 'Puce', value: 'Apple S9 SiP' },
-      { label: 'Écran', value: 'LTPO OLED Always-On, 2 000 nits' },
-      { label: 'Santé', value: 'ECG, SpO2, Température, Crash Detection' },
-      { label: 'Autonomie', value: '18h (36h Low Power)' },
-    ],
-    variants: [
-      {
-        id: 'aws9-41-midnight',
-        storage: '',
-        colorName: 'Midnight',
-        colorHex: '#1C1C1E',
-        priceDA: 68_000,
-        stock: 'in_stock',
-      },
-      {
-        id: 'aws9-41-starlight',
-        storage: '',
-        colorName: 'Starlight',
-        colorHex: '#F2EDDF',
-        priceDA: 68_000,
-        stock: 'low_stock',
-      },
-    ],
-    tags: ['apple', 'watch', 'smartwatch', 'wearable'],
-    createdAt: '2024-01-10T00:00:00Z',
+    specs: '12GB RAM • Caméra 200MP • Charge 120W incluse',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'
   },
+  {
+    id: 'redmi-13c',
+    name: 'Xiaomi Redmi 13C',
+    brand: 'Redmi',
+    condition: 'Neuf Scellé',
+    priceDzd: 24500,
+    storages: ['128GB', '256GB'],
+    colors: [
+      { name: 'Clover Green', hex: '#2E5A44' },
+      { name: 'Midnight Black', hex: '#18181B' }
+    ],
+    specs: '8GB RAM • Écran 90Hz • Batterie 5000mAh',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'realme-12-pro-plus',
+    name: 'Realme 12 Pro+ 5G',
+    brand: 'Realme',
+    condition: 'Neuf Scellé',
+    priceDzd: 74500,
+    storages: ['256GB', '512GB'],
+    colors: [
+      { name: 'Submarine Blue', hex: '#1D4ED8' },
+      { name: 'Navigator Beige', hex: '#D6C7B2' }
+    ],
+    specs: '12GB RAM • Zoom Périscope • Finition Cuir Vegan',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'realme-c67',
+    name: 'Realme C67',
+    brand: 'Realme',
+    condition: 'Neuf Scellé',
+    priceDzd: 33500,
+    storages: ['128GB', '256GB'],
+    colors: [
+      { name: 'Sunny Oasis', hex: '#10B981' },
+      { name: 'Black Rock', hex: '#1F2937' }
+    ],
+    specs: '8GB RAM • Snapdragon 685 • Caméra 108MP',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'apple-watch-s9',
+    name: 'Apple Watch Series 9 GPS',
+    brand: 'Smart Watch',
+    condition: 'Neuf Scellé',
+    priceDzd: 76000,
+    storages: ['41mm', '45mm'],
+    colors: [
+      { name: 'Minuit', hex: '#1E293B' },
+      { name: 'Lumière Stellaire', hex: '#E2E8F0' }
+    ],
+    specs: 'Puce S9 • Écran Retina Always-On • Bracelet Sport',
+    warranty: 'Garantie 12 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'galaxy-watch-6',
+    name: 'Samsung Galaxy Watch 6',
+    brand: 'Smart Watch',
+    condition: 'Cabas Garanti',
+    priceDzd: 43500,
+    storages: ['40mm', '44mm'],
+    colors: [
+      { name: 'Graphite', hex: '#334155' },
+      { name: 'Silver', hex: '#CBD5E1' }
+    ],
+    specs: 'WearOS • Suivi Santé & Sommeil • Chargeur inclus',
+    warranty: 'Garantie Magasin 3 Mois',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'pack-charge-rapide',
+    name: 'Pack Chargeur Origine 35W + Câble USB-C',
+    brand: 'Accessoires',
+    condition: 'Neuf Scellé',
+    priceDzd: 5800,
+    storages: ['USB-C vers USB-C', 'USB-C vers Lightning'],
+    colors: [
+      { name: 'Blanc', hex: '#FFFFFF' }
+    ],
+    specs: 'Charge Rapide Certifiée • Protection Surtension',
+    warranty: 'Garantie Magasin',
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80'
+  }
 ];
-
-export const FEATURED_PRODUCTS = PRODUCTS.filter((p) => p.isFeatured);
-export const NEW_ARRIVALS = PRODUCTS.filter((p) => p.isNewArrival);

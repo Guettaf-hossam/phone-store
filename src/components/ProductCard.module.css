@@ -1,296 +1,183 @@
-/* ============================================================
-   src/components/ProductCard.module.css
-   ============================================================ */
-
 .card {
-  position: relative;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.18s ease, transform 0.15s ease, border-color 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
-  border-color: var(--color-border-strong);
+  border-color: #94a3b8;
 }
 
-/* ---- Image pane ---- */
-.imagePane {
+.imageBox {
   position: relative;
-  height: 200px;
-  background-image:
-    linear-gradient(var(--color-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-color: #fafbfd;
+  width: 100%;
+  height: 190px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-.productImage {
-  max-height: 170px;
-  max-width: 85%;
-  object-fit: contain;
-  filter: drop-shadow(0 6px 18px rgba(15, 23, 42, 0.12));
-  transition: transform 0.3s ease;
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.card:hover .productImage {
-  transform: scale(1.03);
-}
-
-.imagePlaceholder {
+.fallbackBox {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: var(--color-ink-faint);
+  justify-content: center;
+  gap: 6px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.imagePlaceholder svg {
-  width: 42px;
-  height: 42px;
-  opacity: 0.35;
-}
-
-/* Badges row — absolutely positioned top-left */
-.badgeRow {
+.conditionTag {
   position: absolute;
   top: 10px;
   left: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.conditionBadge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 10.5px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.4;
+  background: #ffffff;
+  color: var(--ink-primary);
+  border: 1px solid var(--border-color);
 }
 
-.warrantyBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  background-color: #f0fdf4;
-  color: #15803d;
-  border: 1px solid #bbf7d0;
+.conditionTagNew {
+  background: var(--brand-red);
+  color: #ffffff;
+  border-color: var(--brand-red);
 }
 
-.warrantyBadge svg {
-  width: 10px;
-  height: 10px;
-  flex-shrink: 0;
-}
-
-/* Top-right: featured star */
-.featuredPin {
+.brandTag {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 28px;
-  height: 28px;
-  background: #fef3c7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
 }
 
-/* ---- Body ---- */
-.body {
-  padding: var(--space-md);
+.content {
+  padding: 16px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.brandLabel {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ink-muted);
-}
-
-.modelName {
+.title {
   font-size: 16px;
   font-weight: 800;
-  letter-spacing: -0.015em;
-  color: var(--color-ink-primary);
-  line-height: 1.25;
-  margin-top: 2px;
+  color: var(--ink-primary);
+  margin-bottom: 6px;
 }
 
-.specSummary {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--color-ink-muted);
-  margin-top: 4px;
-  line-height: 1.4;
+.specs {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 10px;
 }
 
-/* Color swatches row */
-.colorRow {
+.storagesRow {
   display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
-.colorDot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(0,0,0,0.12);
-  flex-shrink: 0;
-}
-
-.moreColors {
+.storagePill {
   font-size: 11px;
-  color: var(--color-ink-faint);
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--ink-primary);
 }
 
-/* Stock indicator */
-.stockRow {
+.warranty {
+  font-size: 12px;
+  font-weight: 600;
+  color: #15803d;
+  margin-bottom: 14px;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-top: var(--space-sm);
-}
-
-.stockDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.stockLabel {
-  font-size: 11.5px;
-  font-weight: 600;
-}
-
-/* ---- Footer ---- */
-.footer {
-  padding: var(--space-md);
-  padding-top: 0;
-  margin-top: auto;
-}
-
-.priceRow {
-  display: flex;
-  align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: var(--space-sm);
+  gap: 8px;
 }
 
 .priceBlock {
   display: flex;
   flex-direction: column;
-  gap: 1px;
 }
 
-.priceFrom {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-ink-faint);
+.oldPrice {
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-decoration: line-through;
 }
 
-.priceValue {
-  font-family: 'Inter', var(--font-sans);
-  font-size: 20px;
+.price {
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-ink-primary);
-  line-height: 1;
+  color: var(--ink-primary);
 }
 
-.ctaRow {
-  display: flex;
-  gap: var(--space-xs);
-}
-
-.btnDetails {
-  flex: 1;
+.btnGroup {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-  height: 38px;
-  background: var(--color-brand);
+}
+
+.orderBtn {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--brand-red);
   color: #ffffff;
-  font-size: 12.5px;
-  font-weight: 700;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
   border: none;
-  transition: background-color 0.15s, transform 0.1s;
-  letter-spacing: 0.01em;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.btnDetails:hover {
-  background: var(--color-brand-dark);
-  transform: translateY(-1px);
+.orderBtn:hover {
+  background: var(--brand-red-dark);
 }
 
-.btnDetails:active {
-  transform: translateY(0);
-}
-
-.btnDetails svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-
-.btnWa {
-  width: 38px;
-  height: 38px;
-  display: flex;
+.quickWaBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--whatsapp-green);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  background: #dcfce7;
-  color: #16a34a;
-  border: 1px solid #bbf7d0;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-  flex-shrink: 0;
-  text-decoration: none;
 }
 
-.btnWa:hover {
-  background: #bbf7d0;
-  transform: translateY(-1px);
-}
-
-.btnWa:active {
-  transform: translateY(0);
-}
-
-.btnWa svg {
-  width: 17px;
-  height: 17px;
+.quickWaBtn:hover {
+  border-color: var(--whatsapp-green);
+  background: #f0fdf4;
 }

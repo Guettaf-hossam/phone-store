@@ -1,101 +1,51 @@
-// ============================================================
-// src/types/index.ts
-// Core domain types for Planet Phone e-commerce storefront
-// ============================================================
-
-export type StockStatus = 'in_stock' | 'low_stock' | 'out_of_stock' | 'coming_soon';
-
-export type ProductCondition = 'new_sealed' | 'cabas' | 'reconditioned';
-
 export type ProductCategory =
-  | 'smartphone'
-  | 'smartwatch'
-  | 'accessories'
-  | 'tablet'
-  | 'audio';
-
-export type Brand =
+  | 'Tout'
   | 'Apple'
   | 'Samsung'
-  | 'Xiaomi'
-  | 'Huawei'
-  | 'OPPO'
-  | 'OnePlus'
-  | 'realme'
-  | 'Tecno'
-  | 'Infinix'
-  | 'Other';
+  | 'Redmi'
+  | 'Realme'
+  | 'Smart Watch'
+  | 'Accessoires';
 
-export interface ProductSpec {
-  label: string;
-  value: string;
-}
+export type ProductCondition =
+  | 'Neuf Scellé'
+  | 'Cabas Garanti'
+  | 'Occasion Certifiée';
 
-export interface ProductImage {
-  url: string;
-  alt: string;
-  isPrimary?: boolean;
-}
+export type DeliveryMethod =
+  | 'Retrait en magasin (Bazar Dubai, Bouira)'
+  | 'Livraison Express (Bouira & 58 Wilayas)';
 
-export interface ProductVariant {
-  id: string;
-  storage: string;
-  ram?: string;
-  colorName: string;
-  colorHex: string;
-  priceDA: number;
-  stock: StockStatus;
+export interface ProductColor {
+  name: string;
+  hex: string;
 }
 
 export interface Product {
   id: string;
-  slug: string;
   name: string;
-  brand: Brand;
-  model: string;
-  category: ProductCategory;
+  brand: Exclude<ProductCategory, 'Tout'>;
   condition: ProductCondition;
-  images: ProductImage[];
-  specs: ProductSpec[];
-  variants: ProductVariant[];
-  /** Base display price (lowest variant) */
-  basePriceDA: number;
-  stock: StockStatus;
-  isFeatured?: boolean;
-  isNewArrival?: boolean;
-  /** Short marketing tagline */
-  tagline?: string;
-  tags: string[];
-  createdAt: string;
+  priceDzd: number;
+  oldPriceDzd?: number;
+  storages: string[];
+  colors: ProductColor[];
+  specs: string;
+  warranty: string;
+  inStock: boolean;
+  featured?: boolean;
+  image: string;
 }
 
 export interface StoreInfo {
   name: string;
+  arabicName: string;
   tagline: string;
-  address: {
-    street: string;
-    district: string;
-    city: string;
-    wilaya: string;
-  };
-  phone: string;
-  whatsapp: string;
-  instagram: string;
-  facebook: string;
-  workingHours: string;
-}
-
-export interface SearchState {
-  query: string;
-  activeCategory: ProductCategory | 'all';
-  activeBrand: Brand | 'all';
-  sortBy: 'price_asc' | 'price_desc' | 'newest' | 'featured';
-  priceRange: [number, number];
-}
-
-export interface WhatsAppOrder {
-  product: Product;
-  variant: ProductVariant;
-  customerName?: string;
-  message: string;
+  phoneDisplay: string;
+  whatsappNumber: string;
+  address: string;
+  mapsUrl: string;
+  facebookUrl: string;
+  instagramUrl: string;
+  hours: string;
 }

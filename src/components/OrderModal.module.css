@@ -1,312 +1,167 @@
-/* ============================================================
-   src/components/OrderModal.module.css
-   ============================================================ */
-
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background-color: rgba(15, 23, 42, 0.55);
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.65);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 0;
-  animation: fadeIn 0.18s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@media (min-width: 600px) {
-  .overlay {
-    align-items: center;
-    padding: var(--space-lg);
-  }
+  padding: 16px;
 }
 
 .modal {
   width: 100%;
   max-width: 500px;
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-dropdown);
-  animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   max-height: 92vh;
   overflow-y: auto;
-}
-
-@media (min-width: 600px) {
-  .modal {
-    border-radius: var(--radius-lg);
-  }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(40px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  padding: 20px;
 }
 
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: var(--space-lg);
-  border-bottom: 1px solid var(--color-border);
-  position: sticky;
-  top: 0;
-  background: var(--color-bg-primary);
-  z-index: 1;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
 }
 
-.headerTitle {
-  font-size: 16px;
+.title {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--brand-red);
   font-weight: 700;
-  color: var(--color-ink-primary);
-  line-height: 1.3;
-}
-
-.headerSub {
-  font-size: 12.5px;
-  color: var(--color-ink-muted);
-  margin-top: 2px;
 }
 
 .closeBtn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-ink-muted);
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s;
 }
 
-.closeBtn:hover {
-  background: var(--color-border);
-  color: var(--color-ink-primary);
+.group {
+  margin-bottom: 16px;
 }
 
-.closeBtn svg {
-  width: 15px;
-  height: 15px;
-}
-
-.body {
-  padding: var(--space-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-}
-
-/* Product summary strip */
-.productStrip {
-  display: flex;
-  gap: var(--space-md);
-  align-items: center;
-  padding: var(--space-md);
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-}
-
-.productStripImage {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--color-border);
-}
-
-.productStripInfo {
-  flex: 1;
-  min-width: 0;
-}
-
-.productStripBrand {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-ink-muted);
-}
-
-.productStripName {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-ink-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.productStripPrice {
-  font-family: 'Inter', var(--font-sans);
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--color-brand);
-  margin-top: 2px;
-}
-
-/* Variant selector */
-.sectionLabel {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink-muted);
-  margin-bottom: var(--space-sm);
-}
-
-.storageGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
-.storageBtn {
-  padding: 7px 14px;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-sm);
+.label {
+  display: block;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--color-ink-primary);
-  background: var(--color-bg-primary);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-.storageBtn:hover {
-  border-color: var(--color-brand);
-}
-
-.storageBtnActive {
-  border-color: var(--color-brand);
-  background: var(--color-brand-surface);
-  color: var(--color-brand);
-}
-
-.storageBtnPrice {
-  font-size: 11.5px;
   font-weight: 700;
-  color: var(--color-ink-muted);
+  margin-bottom: 8px;
+  color: var(--ink-primary);
 }
 
-.storageBtnActive .storageBtnPrice {
-  color: var(--color-brand);
-}
-
-.storageBtnOutOfStock {
-  opacity: 0.45;
-  cursor: not-allowed;
-  text-decoration: line-through;
-}
-
-/* Color picker */
-.colorGrid {
+.optionsRow {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
+}
+
+.optionBtn {
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.optionBtnActive {
+  border-color: var(--brand-red);
+  background: var(--brand-red-soft);
+  color: var(--brand-red);
+}
+
+.colorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #94a3b8;
+}
+
+.deliveryGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.colorSwatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  transition: outline-color 0.15s, border-color 0.15s;
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
 }
 
-.colorSwatchActive {
-  outline-color: var(--color-brand);
-  border-color: var(--color-bg-primary);
-}
-
-.colorLabel {
-  font-size: 12px;
-  color: var(--color-ink-muted);
-  margin-top: 4px;
-}
-
-/* Actions */
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--color-border);
-}
-
-.btnWhatsApp {
+.summaryBar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 9px;
-  height: 52px;
-  background-color: var(--color-brand);
+  justify-content: space-between;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  margin-bottom: 14px;
+}
+
+.totalLabel {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.totalValue {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink-primary);
+}
+
+.submitBtn {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 10px;
+  background: var(--whatsapp-green);
   color: #ffffff;
   font-size: 15px;
-  font-weight: 700;
-  border-radius: var(--radius-md);
-  transition: background-color 0.15s, transform 0.1s;
-  letter-spacing: 0.01em;
-}
-
-.btnWhatsApp:hover {
-  background-color: var(--color-brand-dark);
-  transform: translateY(-1px);
-}
-
-.btnWhatsApp svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.btnCall {
-  display: flex;
+  font-weight: 800;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 44px;
-  background-color: transparent;
-  color: var(--color-ink-primary);
-  font-size: 14px;
-  font-weight: 600;
-  border: 1.5px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  transition: border-color 0.15s, background 0.15s;
 }
 
-.btnCall:hover {
-  border-color: var(--color-ink-primary);
-  background: var(--color-bg-secondary);
+.submitBtn:hover {
+  background: var(--whatsapp-green-dark);
 }
 
-.btnCall svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
-.note {
-  font-size: 12px;
-  color: var(--color-ink-faint);
-  text-align: center;
-  padding-bottom: var(--space-sm);
+@media (max-width: 480px) {
+  .inputRow {
+    grid-template-columns: 1fr;
+  }
 }
