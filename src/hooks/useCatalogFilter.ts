@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Product, ProductCategory, ProductCondition } from '../types';
+import { normalizeText } from '../utils/search';
 
 export function useCatalogFilter(products: Product[]) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,7 +9,7 @@ export function useCatalogFilter(products: Product[]) {
   const [onlyInStock, setOnlyInStock] = useState(false);
 
   const filteredProducts = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
+    const query = normalizeText(searchQuery);
 
     return products.filter((product) => {
       const matchesCategory =
@@ -19,12 +20,20 @@ export function useCatalogFilter(products: Product[]) {
 
       const matchesStock = !onlyInStock || product.inStock;
 
+      const searchable = normalizeText(
+        [
+          product.name,
+          product.brand,
+          product.specs,
+          product.condition,
+          product.warranty,
+          ...product.storages,
+          ...product.colors.map((c) => c.name),
+        ].join(' ')
+      );
+
       const matchesQuery =
-        query.length === 0 ||
-        product.name.toLowerCase().includes(query) ||
-        product.brand.toLowerCase().includes(query) ||
-        product.specs.toLowerCase().includes(query) ||
-        product.condition.toLowerCase().includes(query);
+        query.length === 0 || searchable.includes(query);
 
       return matchesCategory && matchesCondition && matchesStock && matchesQuery;
     });

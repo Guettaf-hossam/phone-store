@@ -13,8 +13,8 @@ export type ProductCondition =
   | 'Occasion Certifiée';
 
 export type DeliveryMethod =
-  | 'Retrait en magasin (Bazar Dubai, Bouira)'
-  | 'Livraison Express (Bouira & 58 Wilayas)';
+  | 'Retrait Bazar Dubai, Bouira'
+  | 'Livraison 58 Wilayas';
 
 export interface ProductColor {
   name: string;

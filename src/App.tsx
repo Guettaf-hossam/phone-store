@@ -1,71 +1,64 @@
-import { useEffect, useState } from 'react';
-import { CatalogSection } from './components/CatalogSection';
-import { Footer } from './components/Footer';
-import { HeroSection } from './components/HeroSection';
-import { Navbar } from './components/Navbar';
-import { OoredooBanner } from './components/OoredooBanner';
-import { OrderModal } from './components/OrderModal';
-import { TradeInSection } from './components/TradeInSection';
-import { PRODUCTS } from './data/products';
-import { useCatalogFilter } from './hooks/useCatalogFilter';
-import { fetchStoreProducts } from './lib/supabase';
-import { Product } from './types';
+import { useCallback, useEffect, useState } from 'react';
+import { CatalogSection } from '@/components/CatalogSection';
+import { FAQ } from '@/components/FAQ';
+import { FeatureBento } from '@/components/FeatureBento';
+import { Hero } from '@/components/Hero';
+import { OrderModal } from '@/components/OrderModal';
+import { SafetySection } from '@/components/SafetySection';
+import { ScanModes } from '@/components/ScanModes';
+import { SignalSection } from '@/components/SignalSection';
+import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
+import { PRODUCTS } from '@/data/products';
+import { useCatalogFilter } from '@/hooks/useCatalogFilter';
+import { fetchStoreProducts } from '@/lib/supabase';
+import { Product } from '@/types';
 
 export function App() {
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const closeModal = useCallback(() => setSelectedProduct(null), []);
 
   useEffect(() => {
-    fetchStoreProducts().then((data) => {
-      if (data && data.length > 0) {
-        setProducts(data);
-      }
+    void fetchStoreProducts().then((data) => {
+      if (data.length) setProducts(data);
     });
   }, []);
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    selectedCategory,
-    setSelectedCategory,
-    selectedCondition,
-    setSelectedCondition,
-    onlyInStock,
-    setOnlyInStock,
-    filteredProducts,
-    resetFilters
-  } = useCatalogFilter(products);
-
-  const featuredProduct = products.find((p) => p.featured) ?? products[0];
+  const filters = useCatalogFilter(products);
 
   return (
     <>
-      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      <SiteHeader />
       <main>
-        <HeroSection
-          featuredProduct={featuredProduct}
-          onOrderProduct={setSelectedProduct}
-        />
+        <Hero />
+        <FeatureBento />
+        <SignalSection onSelectBrand={(brand) => {
+          filters.setSelectedCategory(brand);
+          filters.setSelectedCondition('Tous les états');
+        }} />
         <CatalogSection
-          products={filteredProducts}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          selectedCondition={selectedCondition}
-          onSelectCondition={setSelectedCondition}
-          onlyInStock={onlyInStock}
-          onToggleStock={setOnlyInStock}
-          onResetFilters={resetFilters}
+          products={filters.filteredProducts}
+          searchQuery={filters.searchQuery}
+          onSearchChange={filters.setSearchQuery}
+          selectedCategory={filters.selectedCategory}
+          onSelectCategory={filters.setSelectedCategory}
+          selectedCondition={filters.selectedCondition}
+          onSelectCondition={filters.setSelectedCondition}
+          onlyInStock={filters.onlyInStock}
+          onToggleStock={filters.setOnlyInStock}
+          onResetFilters={filters.resetFilters}
           onSelectProduct={setSelectedProduct}
         />
-        <TradeInSection />
-        <OoredooBanner />
+        <ScanModes
+          onSelectConditionFilter={(condition) => filters.setSelectedCondition(condition)}
+          onSelectBrandFilter={(brand) => filters.setSelectedCategory(brand)}
+        />
+        <SafetySection />
+        <FAQ />
       </main>
-      <Footer />
-      <OrderModal
-        key={selectedProduct?.id ?? 'closed'}
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-      />
+      <SiteFooter />
+      <OrderModal key={selectedProduct?.id ?? 'closed'} product={selectedProduct} onClose={closeModal} />
     </>
   );
 }
