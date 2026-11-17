@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CatalogSection } from '@/components/CatalogSection';
 import { FAQ } from '@/components/FAQ';
-import { FeatureBento } from '@/components/FeatureBento';
 import { Hero } from '@/components/Hero';
 import { OrderModal } from '@/components/OrderModal';
 import { SafetySection } from '@/components/SafetySection';
@@ -32,11 +31,6 @@ export function App() {
       <SiteHeader />
       <main>
         <Hero />
-        <FeatureBento />
-        <SignalSection onSelectBrand={(brand) => {
-          filters.setSelectedCategory(brand);
-          filters.setSelectedCondition('Tous les états');
-        }} />
         <CatalogSection
           products={filters.filteredProducts}
           searchQuery={filters.searchQuery}
@@ -50,6 +44,10 @@ export function App() {
           onResetFilters={filters.resetFilters}
           onSelectProduct={setSelectedProduct}
         />
+        <SignalSection onSelectBrand={(brand) => {
+          filters.setSelectedCategory(brand);
+          filters.setSelectedCondition('Tous les états');
+        }} />
         <ScanModes
           onSelectConditionFilter={(condition) => filters.setSelectedCondition(condition)}
           onSelectBrandFilter={(brand) => filters.setSelectedCategory(brand)}

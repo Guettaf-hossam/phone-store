@@ -9,7 +9,21 @@ interface Particle {
   vy: number;
 }
 
-export function TechText() {
+export interface TechTextProps {
+  text?: string;
+  size?: number;
+  weight?: number;
+  specks?: number;
+  className?: string;
+}
+
+export function TechText({
+  text = 'PLANET PHONE',
+  size = 360,
+  weight = 700,
+  specks = 18,
+  className = 'h-[150px] w-full cursor-grab select-none touch-none active:cursor-grabbing sm:h-[220px] lg:h-[300px]',
+}: TechTextProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointer = useRef({ x: -1000, y: -1000, vx: 0, vy: 0, down: false, burst: 0 });
 
@@ -40,15 +54,15 @@ export function TechText() {
       offscreen.height = height;
       const off = offscreen.getContext('2d');
       if (!off) return;
-      const size = Math.max(32, Math.min(width / 7.1, 136));
-      off.font = `700 ${size}px "Geist", sans-serif`;
+      const computedSize = Math.max(34, Math.min(width / (text.length * 0.44), size, height * 0.76));
+      off.font = `${weight} ${computedSize}px "Geist", "Inter", sans-serif`;
       off.textAlign = 'center';
       off.textBaseline = 'middle';
       off.fillStyle = '#fff';
-      off.fillText('PLANET PHONE', width / 2, height / 2);
+      off.fillText(text, width / 2, height / 2);
       const data = off.getImageData(0, 0, width, height).data;
       particles = [];
-      const step = width < 560 ? 5 : 6;
+      const step = width < 560 ? 4 : 5;
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
           if (data[(y * width + x) * 4 + 3] > 120) {
@@ -56,12 +70,25 @@ export function TechText() {
           }
         }
       }
+
+      for (let i = 0; i < specks; i++) {
+        const sx = Math.random() * width;
+        const sy = Math.random() * height;
+        particles.push({
+          x: sx,
+          y: sy,
+          originX: sx,
+          originY: sy,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+        });
+      }
     };
 
     const draw = () => {
       const rect = canvas.getBoundingClientRect();
       context.clearRect(0, 0, rect.width, rect.height);
-      const radius = pointer.current.down ? 130 : 92;
+      const radius = pointer.current.down ? 140 : 98;
       const burst = pointer.current.burst;
       pointer.current.burst *= 0.85;
       pointer.current.vx *= 0.82;
@@ -73,7 +100,7 @@ export function TechText() {
         const distance = Math.hypot(dx, dy) || 1;
         if (!reducedMotion && distance < radius) {
           const falloff = (radius - distance) / radius;
-          const force = falloff * (pointer.current.down ? 7.5 : 3.2) + falloff * burst;
+          const force = falloff * (pointer.current.down ? 7.8 : 3.4) + falloff * burst;
           dot.vx += (dx / distance) * force + pointer.current.vx * falloff * 0.22;
           dot.vy += (dy / distance) * force + pointer.current.vy * falloff * 0.22;
         }
@@ -89,8 +116,8 @@ export function TechText() {
             ? '#d9232e'
             : displacement > 3
               ? '#d9d9de'
-              : 'rgba(255,255,255,0.9)';
-        context.fillRect(dot.x, dot.y, 2.5, 2.5);
+              : 'rgba(255,255,255,0.92)';
+        context.fillRect(dot.x, dot.y, 2.6, 2.6);
       }
       frame = requestAnimationFrame(draw);
     };
@@ -98,6 +125,7 @@ export function TechText() {
     resize();
     void document.fonts?.ready.then(resize);
     draw();
+
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
     window.addEventListener('resize', resize);
@@ -107,7 +135,7 @@ export function TechText() {
       observer.disconnect();
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [text, size, weight, specks]);
 
   const move = (event: PointerEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -128,13 +156,13 @@ export function TechText() {
       onPointerDown={(event) => {
         event.currentTarget.setPointerCapture(event.pointerId);
         pointer.current.down = true;
-        pointer.current.burst = 12;
+        pointer.current.burst = 14;
         move(event);
       }}
       onPointerUp={() => { pointer.current.down = false; }}
       onPointerCancel={() => { pointer.current.down = false; }}
       onPointerLeave={() => { pointer.current.x = -1000; pointer.current.y = -1000; pointer.current.down = false; }}
-      className="h-[220px] w-full cursor-grab select-none touch-none active:cursor-grabbing sm:h-[280px] md:h-[340px]"
+      className={className}
       aria-label="Mot-symbole interactif PLANET PHONE. Cliquez ou faites glisser le pointeur pour disperser les pixels."
     />
   );
