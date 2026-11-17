@@ -1,5 +1,6 @@
 import { ArrowUpRight, Box, ShieldCheck, Smartphone } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import { Product } from '@/types';
 import { formatDzd } from '@/utils/formatting';
 
@@ -10,23 +11,70 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onSelectProduct }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
+  const { language } = useLanguage();
+
+  const getConditionText = (cond: string) => {
+    if (language === 'ar') {
+      if (cond === 'Neuf Scellé') return 'جديد مغلف';
+      if (cond === 'Cabas Garanti') return 'كابا مضمون';
+      if (cond === 'Occasion Certifiée') return 'مستعمل معتمد';
+    }
+    if (language === 'en') {
+      if (cond === 'Neuf Scellé') return 'Sealed New';
+      if (cond === 'Cabas Garanti') return 'Guaranteed Cabas';
+      if (cond === 'Occasion Certifiée') return 'Certified Pre-owned';
+    }
+    return cond;
+  };
+
+  const inStockLabel = product.inStock
+    ? language === 'ar'
+      ? 'متوفر · البويرة'
+      : language === 'en'
+        ? 'In stock · Bouira'
+        : 'En stock · Bouira'
+    : language === 'ar'
+      ? 'بالطلب مسبقاً'
+      : language === 'en'
+        ? 'Pre-order'
+        : 'Sur commande';
+
+  const actionLabel = language === 'ar' ? 'تحديد وطلب' : language === 'en' ? 'Configure' : 'Configurer';
+
   return (
-    <button type="button" onClick={() => onSelectProduct(product)} className="card group flex min-h-[500px] w-full flex-col overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(12,12,13,.12)]">
+    <button
+      type="button"
+      onClick={() => onSelectProduct(product)}
+      className="card group flex min-h-[500px] w-full flex-col overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(12,12,13,.12)]"
+    >
       <div className="relative m-2 h-64 overflow-hidden rounded-[26px] bg-[#d7d7dc]">
         {!imageError ? (
-          <img src={product.image} alt={product.name} loading="lazy" onError={() => setImageError(true)} className="size-full object-cover grayscale-[18%] transition duration-700 group-hover:scale-[1.04] group-hover:grayscale-0" />
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            onError={() => setImageError(true)}
+            className="size-full object-cover grayscale-[18%] transition duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+          />
         ) : (
-          <span className="flex size-full flex-col items-center justify-center gap-3 text-muted"><Smartphone size={42} /><span className="font-mono text-xs">{product.brand}</span></span>
+          <span className="flex size-full flex-col items-center justify-center gap-3 text-muted">
+            <Smartphone size={42} />
+            <span className="font-mono text-xs">{product.brand}</span>
+          </span>
         )}
-        <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/75 px-3 py-2 font-mono text-[9px] uppercase backdrop-blur-md">{product.condition}</span>
-        <span className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-45"><ArrowUpRight size={16} /></span>
+        <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/75 px-3 py-2 font-mono text-[9px] uppercase backdrop-blur-md">
+          {getConditionText(product.condition)}
+        </span>
+        <span className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-45">
+          <ArrowUpRight size={16} />
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-6 pt-4">
         <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[.12em] text-muted">
           <span>{product.brand}</span>
           <span className="inline-flex items-center gap-1.5">
             <i className={`size-1.5 rounded-full ${product.inStock ? 'bg-emerald-600' : 'bg-zinc-400'}`} />
-            {product.inStock ? 'En stock · Bouira' : 'Sur commande'}
+            {inStockLabel}
           </span>
         </div>
         <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-[-.045em]">{product.name}</h3>
@@ -65,7 +113,7 @@ export function ProductCard({ product, onSelectProduct }: ProductCardProps) {
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5 text-[11px] font-medium text-ink transition group-hover:bg-ink group-hover:text-white">
             <Box size={13} />
-            Configurer
+            {actionLabel}
           </span>
         </div>
       </div>

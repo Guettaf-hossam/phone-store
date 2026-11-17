@@ -8,12 +8,13 @@ import { ScanModes } from '@/components/ScanModes';
 import { SignalSection } from '@/components/SignalSection';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
+import { LanguageProvider } from '@/context/LanguageContext';
 import { PRODUCTS } from '@/data/products';
 import { useCatalogFilter } from '@/hooks/useCatalogFilter';
 import { fetchStoreProducts } from '@/lib/supabase';
 import { Product } from '@/types';
 
-export function App() {
+function AppContent() {
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const closeModal = useCallback(() => setSelectedProduct(null), []);
@@ -31,6 +32,12 @@ export function App() {
       <SiteHeader />
       <main>
         <Hero />
+        <SignalSection onSelectBrand={(brand) => {
+          filters.setSelectedCategory(brand);
+          filters.setSelectedCondition('Tous les états');
+          const cat = document.getElementById('catalogue');
+          cat?.scrollIntoView({ behavior: 'smooth' });
+        }} />
         <CatalogSection
           products={filters.filteredProducts}
           searchQuery={filters.searchQuery}
@@ -44,10 +51,6 @@ export function App() {
           onResetFilters={filters.resetFilters}
           onSelectProduct={setSelectedProduct}
         />
-        <SignalSection onSelectBrand={(brand) => {
-          filters.setSelectedCategory(brand);
-          filters.setSelectedCondition('Tous les états');
-        }} />
         <ScanModes
           onSelectConditionFilter={(condition) => filters.setSelectedCondition(condition)}
           onSelectBrandFilter={(brand) => filters.setSelectedCategory(brand)}
@@ -58,6 +61,14 @@ export function App() {
       <SiteFooter />
       <OrderModal key={selectedProduct?.id ?? 'closed'} product={selectedProduct} onClose={closeModal} />
     </>
+  );
+}
+
+export function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
