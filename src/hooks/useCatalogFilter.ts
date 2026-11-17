@@ -23,10 +23,13 @@ export function useCatalogFilter(products: Product[]) {
       const searchable = normalizeText(
         [
           product.name,
+          product.nameAr || '',
           product.brand,
           product.specs,
+          product.specsAr || '',
           product.condition,
           product.warranty,
+          product.warrantyAr || '',
           ...product.storages,
           ...product.colors.map((c) => c.name),
         ].join(' ')
@@ -56,6 +59,6 @@ export function useCatalogFilter(products: Product[]) {
     onlyInStock,
     setOnlyInStock,
     filteredProducts,
-    resetFilters
+    resetFilters,
   };
 }

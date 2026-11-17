@@ -30,12 +30,14 @@ export function CatalogSection(props: CatalogSectionProps) {
         case 'Redmi': return 'ريدمي';
         case 'Realme': return 'ريلمي';
         case 'Smart Watch': return 'ساعات ذكية';
+        case 'Parfums': return 'عطور فاخرة';
         case 'Accessoires': return 'إكسسوارات';
       }
     }
     if (language === 'en') {
       switch (cat) {
         case 'Tout': return 'All';
+        case 'Parfums': return 'Luxury Perfumes';
         case 'Accessoires': return 'Accessories';
       }
     }
@@ -63,14 +65,14 @@ export function CatalogSection(props: CatalogSectionProps) {
   };
 
   return (
-    <section id="catalogue" className="py-24 md:py-32">
+    <section id="catalogue" className="scroll-mt-28 py-20 md:py-28">
       <div className="container-shell">
         <div className="grid gap-8 border-b border-line pb-9 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <span className="font-mono text-[10px] uppercase tracking-[.18em] text-muted">
               {t('catalog.badge')}
             </span>
-            <h2 className="iri-text mt-4 text-5xl font-semibold leading-[.92] tracking-[-.065em] md:text-8xl">
+            <h2 className="iri-text mt-4 text-4xl font-semibold leading-[1.05] tracking-[-.05em] md:text-7xl">
               {t('catalog.title')}
             </h2>
           </div>
@@ -99,7 +101,7 @@ export function CatalogSection(props: CatalogSectionProps) {
               onClick={() => props.onSelectCategory(category)}
               className={`min-h-11 shrink-0 rounded-full px-5 text-xs font-medium transition ${
                 props.selectedCategory === category
-                  ? 'bg-ink text-white'
+                  ? 'bg-ink text-white font-semibold shadow-sm'
                   : 'border border-line bg-white/55 text-muted hover:border-ink'
               }`}
             >
@@ -117,7 +119,7 @@ export function CatalogSection(props: CatalogSectionProps) {
                 onClick={() => props.onSelectCondition(condition)}
                 className={`min-h-10 shrink-0 rounded-full px-4 font-mono text-[9px] uppercase transition ${
                   props.selectedCondition === condition
-                    ? 'bg-silver text-ink'
+                    ? 'bg-silver text-ink font-semibold'
                     : 'text-muted hover:bg-white'
                 }`}
               >

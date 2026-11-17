@@ -15,8 +15,8 @@ export async function fetchStoreProducts(): Promise<Product[]> {
       {
         headers: {
           apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-        }
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
       }
     );
 
@@ -32,6 +32,7 @@ export async function fetchStoreProducts(): Promise<Product[]> {
     return rows.map((row) => ({
       id: row.id,
       name: row.name,
+      nameAr: row.name_ar ?? undefined,
       brand: row.brand,
       condition: row.condition,
       priceDzd: row.price_dzd,
@@ -39,10 +40,12 @@ export async function fetchStoreProducts(): Promise<Product[]> {
       storages: row.storages,
       colors: row.colors,
       specs: row.specs,
+      specsAr: row.specs_ar ?? undefined,
       warranty: row.warranty,
+      warrantyAr: row.warranty_ar ?? undefined,
       inStock: row.in_stock,
       featured: row.featured,
-      image: row.image
+      image: row.image,
     }));
   } catch {
     return PRODUCTS;

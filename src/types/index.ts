@@ -5,7 +5,8 @@ export type ProductCategory =
   | 'Redmi'
   | 'Realme'
   | 'Smart Watch'
-  | 'Accessoires';
+  | 'Accessoires'
+  | 'Parfums';
 
 export type ProductCondition =
   | 'Neuf Scellé'
@@ -24,6 +25,7 @@ export interface ProductColor {
 export interface Product {
   id: string;
   name: string;
+  nameAr?: string;
   brand: Exclude<ProductCategory, 'Tout'>;
   condition: ProductCondition;
   priceDzd: number;
@@ -31,7 +33,9 @@ export interface Product {
   storages: string[];
   colors: ProductColor[];
   specs: string;
+  specsAr?: string;
   warranty: string;
+  warrantyAr?: string;
   inStock: boolean;
   featured?: boolean;
   image: string;

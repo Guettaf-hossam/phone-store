@@ -16,7 +16,7 @@ export function SiteHeader() {
   return (
     <header className="fixed left-1/2 top-4 z-50 w-[min(calc(100%-24px),960px)] -translate-x-1/2">
       <nav aria-label="Navigation principale" className="relative flex h-[68px] items-center justify-between rounded-full border border-white/12 bg-[#1c1c1f]/88 px-2.5 shadow-[0_12px_50px_rgba(0,0,0,.24)] backdrop-blur-xl">
-        <a href="#" aria-label="Planet Phone, accueil" className="flex items-center gap-3 rounded-full pr-3">
+        <a href="#" aria-label="Planet Phone, accueil" className="flex items-center gap-3 rounded-full pe-3">
           <ProductMark className="size-12" />
           <span className="hidden flex-col sm:flex">
             <span className="text-xs font-semibold tracking-[0.13em] text-white">PLANET PHONE</span>
@@ -68,7 +68,7 @@ export function SiteHeader() {
 
         <a href={whatsApp} target="_blank" rel="noreferrer" className="flex min-h-12 items-center gap-2 rounded-full bg-silver px-4 text-xs font-semibold text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:bg-white">
           <MessageCircle size={16} />
-          <span className="hidden tabular-nums sm:inline">{STORE_INFO.phoneDisplay}</span>
+          <bdi dir="ltr" className="hidden tabular-nums sm:inline">{STORE_INFO.phoneDisplay}</bdi>
           <span className="sm:hidden">WhatsApp</span>
         </a>
         <MobileMenu open={open} onClose={close} triggerRef={triggerRef} />

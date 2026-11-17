@@ -67,7 +67,7 @@ export function SiteFooter() {
                 className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-[#d9232e]"
               >
                 <MessageCircle size={15} />
-                <span className="tabular-nums">WhatsApp · {STORE_INFO.phoneDisplay}</span>
+                <bdi dir="ltr" className="tabular-nums">WhatsApp · {STORE_INFO.phoneDisplay}</bdi>
                 <ArrowUpRight size={13} />
               </a>
               <a
@@ -93,7 +93,8 @@ export function SiteFooter() {
                 href={`tel:${STORE_INFO.phoneDisplay.replace(/\s/g, '')}`}
                 className="text-sm tabular-nums text-ink-soft hover:text-ink"
               >
-                {t('footer.call')} : {STORE_INFO.phoneDisplay}
+                <span>{t('footer.call')} : </span>
+                <bdi dir="ltr">{STORE_INFO.phoneDisplay}</bdi>
               </a>
             </div>
           </div>

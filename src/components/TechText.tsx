@@ -40,7 +40,7 @@ export function TechText() {
       offscreen.height = height;
       const off = offscreen.getContext('2d');
       if (!off) return;
-      const size = Math.max(32, Math.min(width / 7.1, 136));
+      const size = Math.max(26, Math.min(width / 7.2, 130));
       off.font = `700 ${size}px "Geist", "Inter", sans-serif`;
       off.textAlign = 'center';
       off.textBaseline = 'middle';
@@ -48,7 +48,7 @@ export function TechText() {
       off.fillText('PLANET PHONE', width / 2, height / 2);
       const data = off.getImageData(0, 0, width, height).data;
       particles = [];
-      const step = width < 560 ? 5 : 6;
+      const step = width < 560 ? 4 : 5;
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
           if (data[(y * width + x) * 4 + 3] > 120) {
@@ -89,7 +89,7 @@ export function TechText() {
             ? '#d9232e'
             : displacement > 3
               ? '#d9d9de'
-              : 'rgba(255,255,255,0.9)';
+              : 'rgba(255,255,255,0.92)';
         context.fillRect(dot.x, dot.y, 2.5, 2.5);
       }
       frame = requestAnimationFrame(draw);
@@ -134,7 +134,7 @@ export function TechText() {
       onPointerUp={() => { pointer.current.down = false; }}
       onPointerCancel={() => { pointer.current.down = false; }}
       onPointerLeave={() => { pointer.current.x = -1000; pointer.current.y = -1000; pointer.current.down = false; }}
-      className="h-[220px] w-full cursor-grab select-none touch-none active:cursor-grabbing sm:h-[280px] md:h-[340px]"
+      className="h-[180px] w-full cursor-grab select-none touch-none active:cursor-grabbing sm:h-[260px] md:h-[320px]"
       aria-label="Mot-symbole interactif PLANET PHONE. Cliquez ou faites glisser le pointeur pour disperser les pixels."
     />
   );

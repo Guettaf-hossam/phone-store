@@ -36,17 +36,19 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
   const activeColor = product.colors.some((item) => item.name === color) ? color : product.colors[0]?.name ?? 'Standard';
 
   const deliveryLabel = deliveryType === 'bazar' ? t('modal.pickupBazar') : t('modal.delivery58');
+  const displayName = language === 'ar' && product.nameAr ? product.nameAr : product.name;
+  const displayWarranty = language === 'ar' && product.warrantyAr ? product.warrantyAr : product.warranty;
 
   const buildOrderMessage = () => {
     if (language === 'ar') {
       return [
-        'السلام عليكم *بلانت فون*، أود تأكيد طلب الهاتف التالي :',
-        `• الموديل : *${product.name}*`,
+        'السلام عليكم *بلانت فون*، أود تأكيد طلب الهاتف / المنتج التالي :',
+        `• الموديل : *${displayName}*`,
         `• الحالة : *${product.condition}*`,
-        `• السعة : *${activeStorage}*`,
-        `• اللون : *${activeColor}*`,
+        `• السعة / الخيار : *${activeStorage}*`,
+        `• اللون / الإصدار : *${activeColor}*`,
         `• طريقة الاستلام : *${deliveryLabel}*`,
-        `• السعر المعلن : *${formatDzd(product.priceDzd)}*`,
+        `• السعر المعلن : *${formatDzd(product.priceDzd, language)}*`,
       ].join('\n');
     }
     if (language === 'en') {
@@ -57,7 +59,7 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
         `• Storage / Option : *${activeStorage}*`,
         `• Color : *${activeColor}*`,
         `• Delivery method : *${deliveryLabel}*`,
-        `• Displayed price : *${formatDzd(product.priceDzd)}*`,
+        `• Displayed price : *${formatDzd(product.priceDzd, language)}*`,
       ].join('\n');
     }
     return [
@@ -67,7 +69,7 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
       `• Stockage / option : *${activeStorage}*`,
       `• Couleur : *${activeColor}*`,
       `• Livraison : *${deliveryLabel}*`,
-      `• Prix affiché : *${formatDzd(product.priceDzd)}*`,
+      `• Prix affiché : *${formatDzd(product.priceDzd, language)}*`,
     ].join('\n');
   };
 
@@ -85,7 +87,7 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="order-title"
-        className="max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] bg-paper p-5 shadow-2xl reveal sm:max-w-2xl sm:rounded-[32px] sm:p-8"
+        className="max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] bg-paper p-5 text-start shadow-2xl reveal sm:max-w-2xl sm:rounded-[32px] sm:p-8"
       >
         <div className="flex items-start justify-between">
           <div>
@@ -93,10 +95,10 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
               {t('modal.liveConfig')}
             </span>
             <h2 id="order-title" className="mt-2 text-3xl font-semibold tracking-[-.05em]">
-              {product.name}
+              {displayName}
             </h2>
             <p className="mt-1 text-xs text-muted">
-              {product.condition} · {product.warranty}
+              {product.condition} · {displayWarranty}
             </p>
           </div>
           <button
@@ -140,7 +142,9 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
 
         <div className="mt-8 flex items-center justify-between border-y border-line py-5">
           <span className="text-xs text-muted">{t('modal.displayedPrice')}</span>
-          <strong className="text-2xl tracking-[-.04em]">{formatDzd(product.priceDzd)}</strong>
+          <bdi dir="ltr" className="text-2xl font-bold tracking-[-.04em] text-ink">
+            {formatDzd(product.priceDzd, language)}
+          </bdi>
         </div>
 
         <a

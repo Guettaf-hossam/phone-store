@@ -6,7 +6,7 @@ export function Hero() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-[880px] overflow-hidden bg-ink pt-36 text-white">
+    <section className="relative min-h-[840px] overflow-hidden bg-ink pt-32 text-white md:min-h-[880px] md:pt-36">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_78%,rgba(217,217,222,0.58)_0%,rgba(125,125,134,0.22)_25%,transparent_56%),radial-gradient(circle_at_15%_16%,rgba(255,255,255,0.12),transparent_32%),radial-gradient(circle_at_85%_20%,rgba(217,35,46,0.14),transparent_28%),linear-gradient(165deg,#0c0c0d_18%,#1d1d21_58%,#7e7e87_115%)]" />
       <svg aria-hidden="true" viewBox="0 0 1200 760" className="pointer-events-none absolute bottom-0 left-1/2 h-[82%] w-[1280px] max-w-none -translate-x-1/2 opacity-60">
         {[180, 270, 365, 460].map((radius, index) => (
@@ -26,26 +26,26 @@ export function Hero() {
         <line x1="600" y1="210" x2="600" y2="700" stroke="rgba(255,255,255,0.08)" strokeDasharray="4 8" />
       </svg>
 
-      <div className="container-shell relative z-10 flex min-h-[744px] flex-col items-center text-center">
+      <div className="container-shell relative z-10 flex min-h-[700px] flex-col items-center text-center">
         <div className="chip border-white/16 bg-white/[0.08] text-white/82 shadow-none backdrop-blur-md">
           <MapPin size={13} className="text-[#ef5b64]" />
           <span>{t('hero.badge')}</span>
         </div>
 
-        <h1 className="iri-text-on-dark mt-9 max-w-5xl text-balance text-[clamp(2.8rem,7.5vw,7.4rem)] font-semibold leading-[0.92] tracking-[-0.06em]">
+        <h1 className="iri-text-on-dark mt-7 max-w-5xl text-balance text-[clamp(2.4rem,7vw,7rem)] font-semibold leading-[0.98] tracking-[-0.05em] md:mt-9">
           {t('hero.title')}
         </h1>
 
-        <p className="mt-8 max-w-xl text-balance text-base leading-7 text-white/68 md:text-lg">
+        <p className="mt-6 max-w-xl text-balance text-sm leading-7 text-white/68 md:mt-8 md:text-lg">
           {t('hero.subtitle')}
         </p>
 
-        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row md:mt-9">
           <PrimaryButton href="#catalogue">{t('hero.explore')}</PrimaryButton>
           <SecondaryButton href="#reprise">{t('hero.tradeIn')}</SecondaryButton>
         </div>
 
-        <div className="mt-14 w-full max-w-3xl rounded-[28px] border border-white/16 bg-[#131316]/72 p-4 text-left shadow-[0_24px_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-xl sm:p-5">
+        <div className="mt-12 w-full max-w-3xl rounded-[28px] border border-white/16 bg-[#131316]/72 p-4 text-start shadow-[0_24px_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-xl sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3.5 font-mono text-[10px] uppercase tracking-[0.14em] text-white/52">
             <span className="inline-flex items-center gap-2 text-white/85">
               <span className="size-2 rounded-full bg-[#d9232e] shadow-[0_0_10px_#d9232e]" />

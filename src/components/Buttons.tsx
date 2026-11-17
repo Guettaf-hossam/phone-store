@@ -12,7 +12,7 @@ export function PrimaryButton({ href, children }: ButtonLinkProps) {
       href={href}
       className="group relative inline-flex min-h-14 items-center rounded-full p-px shadow-[0_14px_34px_rgba(0,0,0,0.34)] transition duration-200 hover:-translate-y-0.5 iri-gradient"
     >
-      <span className="flex h-full min-h-[54px] items-center gap-4 rounded-full bg-ink pl-6 pr-2 py-1.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+      <span className="flex h-full min-h-[54px] items-center gap-4 rounded-full bg-ink ps-6 pe-2 py-1.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
         {children}
         <span className="grid size-10 place-items-center rounded-full bg-white text-ink transition-transform duration-300 ease-out group-hover:rotate-45">
           <ArrowUpRight size={17} />

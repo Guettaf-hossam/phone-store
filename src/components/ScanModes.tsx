@@ -75,7 +75,7 @@ const modesData: Record<
   },
 };
 
-const brands: ProductCategory[] = ['Apple', 'Samsung', 'Redmi', 'Realme', 'Smart Watch'];
+const brands: ProductCategory[] = ['Apple', 'Samsung', 'Redmi', 'Realme', 'Smart Watch', 'Parfums'];
 const modeKeys = Object.keys(modesData) as ProductCondition[];
 
 export function ScanModes({ onSelectConditionFilter, onSelectBrandFilter }: ScanModesProps) {
@@ -105,6 +105,10 @@ export function ScanModes({ onSelectConditionFilter, onSelectBrandFilter }: Scan
       if (brand === 'Redmi') return 'ريدمي';
       if (brand === 'Realme') return 'ريلمي';
       if (brand === 'Smart Watch') return 'ساعات ذكية';
+      if (brand === 'Parfums') return 'عطور فاخرة';
+    }
+    if (language === 'en') {
+      if (brand === 'Parfums') return 'Luxury Perfumes';
     }
     return brand;
   };
@@ -128,7 +132,7 @@ export function ScanModes({ onSelectConditionFilter, onSelectBrandFilter }: Scan
                   role="tab"
                   aria-selected={active === mode}
                   onClick={() => setActive(mode)}
-                  className={`flex min-h-16 items-center justify-between rounded-2xl px-5 text-left transition ${
+                  className={`flex min-h-16 items-center justify-between rounded-2xl px-5 text-start transition ${
                     active === mode
                       ? 'border-2 border-[#d9232e] bg-white text-[#0c0c0d] shadow-[0_8px_24px_rgba(0,0,0,0.06)]'
                       : 'border border-line bg-white/60 text-muted hover:border-ink/30 hover:bg-white'
@@ -140,7 +144,7 @@ export function ScanModes({ onSelectConditionFilter, onSelectBrandFilter }: Scan
               ))}
             </div>
           </div>
-          <div key={active} className="reveal rounded-[32px] border border-line bg-white p-7 shadow-[0_16px_40px_rgba(0,0,0,0.04)] md:p-10">
+          <div key={active} className="reveal rounded-[32px] border border-line bg-white p-7 text-start shadow-[0_16px_40px_rgba(0,0,0,0.04)] md:p-10">
             <div className="flex items-center justify-between">
               <span className="chip border-line bg-[#f0f0f2] text-muted shadow-none">
                 Mode 0{activeIndex + 1} · {getConditionName(active)}
@@ -179,17 +183,13 @@ export function ScanModes({ onSelectConditionFilter, onSelectBrandFilter }: Scan
             </a>
           </div>
         </div>
-        <div className="mt-16 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-white shadow-sm sm:grid-cols-5">
+        <div className="mt-16 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-white shadow-sm sm:grid-cols-3 lg:grid-cols-6">
           {brands.map((brand, index) => (
             <a
               key={brand}
               href="#catalogue"
               onClick={() => onSelectBrandFilter?.(brand)}
-              className={`flex min-h-24 flex-col items-center justify-center gap-3 border-line p-4 transition hover:bg-[#f2f2f4] ${
-                index === brands.length - 1
-                  ? 'max-sm:col-span-2'
-                  : 'max-sm:border-b max-sm:[&:nth-child(odd)]:border-r sm:border-r'
-              }`}
+              className="flex min-h-24 flex-col items-center justify-center gap-3 border-b border-r border-line p-4 transition hover:bg-[#f2f2f4]"
             >
               <PixelIcon variant={index} dark={true} />
               <span className="text-center text-xs font-semibold text-[#0c0c0d]">{getBrandName(brand)}</span>
