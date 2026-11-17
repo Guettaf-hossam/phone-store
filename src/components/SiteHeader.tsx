@@ -1,8 +1,6 @@
-import { Menu, MessageCircle, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useCallback, useRef, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { STORE_INFO } from '@/data/store';
-import { buildWhatsAppUrl } from '@/utils/formatting';
 import { MobileMenu } from './MobileMenu';
 import { ProductMark } from './ProductMark';
 
@@ -11,7 +9,6 @@ export function SiteHeader() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const close = useCallback(() => setOpen(false), []);
   const { language, setLanguage, t } = useLanguage();
-  const whatsApp = buildWhatsAppUrl(STORE_INFO.whatsappNumber, 'Salam Planet Phone, je souhaite avoir des informations sur un modèle.');
 
   return (
     <header className="fixed left-1/2 top-4 z-50 w-[min(calc(100%-24px),960px)] -translate-x-1/2">
@@ -66,11 +63,6 @@ export function SiteHeader() {
           </button>
         </div>
 
-        <a href={whatsApp} target="_blank" rel="noreferrer" className="flex min-h-12 items-center gap-2 rounded-full bg-silver px-4 text-xs font-semibold text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:bg-white">
-          <MessageCircle size={16} />
-          <bdi dir="ltr" className="hidden tabular-nums sm:inline">{STORE_INFO.phoneDisplay}</bdi>
-          <span className="sm:hidden">WhatsApp</span>
-        </a>
         <MobileMenu open={open} onClose={close} triggerRef={triggerRef} />
       </nav>
     </header>

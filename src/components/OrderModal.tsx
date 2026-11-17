@@ -87,75 +87,110 @@ export function OrderModal({ product, onClose }: OrderModalProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="order-title"
-        className="max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] bg-paper p-5 text-start shadow-2xl reveal sm:max-w-2xl sm:rounded-[32px] sm:p-8"
+        className="max-h-[94vh] w-full overflow-y-auto rounded-t-[32px] bg-paper text-start shadow-2xl reveal sm:max-w-2xl sm:rounded-[32px]"
       >
-        <div className="flex items-start justify-between">
-          <div>
-            <span className="font-mono text-[9px] uppercase tracking-[.14em] text-muted">
-              {t('modal.liveConfig')}
-            </span>
-            <h2 id="order-title" className="mt-2 text-3xl font-semibold tracking-[-.05em]">
-              {displayName}
-            </h2>
-            <p className="mt-1 text-xs text-muted">
-              {product.condition} · {displayWarranty}
-            </p>
+        {product.image && (
+          <div className="relative overflow-hidden rounded-t-[32px] sm:rounded-t-[32px]">
+            <img
+              src={product.image}
+              alt={displayName}
+              className="h-64 w-full object-cover sm:h-80"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              aria-label={t('modal.closeAria')}
+              className="absolute end-4 top-4 grid size-10 place-items-center rounded-full bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/60"
+            >
+              <X size={18} />
+            </button>
+            <div className="absolute bottom-4 start-5">
+              <span className="font-mono text-[9px] uppercase tracking-[.14em] text-white/60">
+                {t('modal.liveConfig')}
+              </span>
+              <h2 id="order-title" className="mt-0.5 text-2xl font-semibold tracking-[-.05em] text-white drop-shadow">
+                {displayName}
+              </h2>
+              <p className="mt-0.5 text-xs text-white/70">
+                {product.condition} · {displayWarranty}
+              </p>
+            </div>
           </div>
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            aria-label={t('modal.closeAria')}
-            className="grid size-11 shrink-0 place-items-center rounded-full border border-line hover:bg-white"
+        )}
+        <div className={`p-5 sm:p-8 ${!product.image ? 'pt-5' : ''}`}>
+        {!product.image && (
+          <div className="flex items-start justify-between">
+            <div>
+              <span className="font-mono text-[9px] uppercase tracking-[.14em] text-muted">
+                {t('modal.liveConfig')}
+              </span>
+              <h2 id="order-title" className="mt-2 text-3xl font-semibold tracking-[-.05em]">
+                {displayName}
+              </h2>
+              <p className="mt-1 text-xs text-muted">
+                {product.condition} · {displayWarranty}
+              </p>
+            </div>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              aria-label={t('modal.closeAria')}
+              className="grid size-11 shrink-0 place-items-center rounded-full border border-line hover:bg-white"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        )}
+
+          <OptionGroup label={t('modal.storage')}>
+            {product.storages.map((item) => (
+              <Option key={item} active={activeStorage === item} onClick={() => setStorage(item)}>
+                {item}
+              </Option>
+            ))}
+          </OptionGroup>
+
+          <OptionGroup label={t('modal.color')}>
+            {product.colors.map((item) => (
+              <Option key={item.name} active={activeColor === item.name} onClick={() => setColor(item.name)}>
+                <i className="size-3 rounded-full border border-black/15" style={{ backgroundColor: item.hex }} />
+                {item.name}
+              </Option>
+            ))}
+          </OptionGroup>
+
+          <OptionGroup label={t('modal.pickup')}>
+            <Option active={deliveryType === 'bazar'} onClick={() => setDeliveryType('bazar')}>
+              <Store size={15} />
+              {t('modal.pickupBazar')}
+            </Option>
+            <Option active={deliveryType === '58'} onClick={() => setDeliveryType('58')}>
+              <Truck size={15} />
+              {t('modal.delivery58')}
+            </Option>
+          </OptionGroup>
+
+          <div className="mt-8 flex items-center justify-between border-y border-line py-5">
+            <span className="text-xs text-muted">{t('modal.displayedPrice')}</span>
+            <bdi dir="ltr" className="text-2xl font-bold tracking-[-.04em] text-ink">
+              {formatDzd(product.priceDzd, language)}
+            </bdi>
+          </div>
+
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 flex min-h-14 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-white transition hover:bg-[#242428]"
           >
-            <X size={18} />
-          </button>
+            <MessageCircle size={18} />
+            {t('modal.whatsappBtn')}
+          </a>
         </div>
-
-        <OptionGroup label={t('modal.storage')}>
-          {product.storages.map((item) => (
-            <Option key={item} active={activeStorage === item} onClick={() => setStorage(item)}>
-              {item}
-            </Option>
-          ))}
-        </OptionGroup>
-
-        <OptionGroup label={t('modal.color')}>
-          {product.colors.map((item) => (
-            <Option key={item.name} active={activeColor === item.name} onClick={() => setColor(item.name)}>
-              <i className="size-3 rounded-full border border-black/15" style={{ backgroundColor: item.hex }} />
-              {item.name}
-            </Option>
-          ))}
-        </OptionGroup>
-
-        <OptionGroup label={t('modal.pickup')}>
-          <Option active={deliveryType === 'bazar'} onClick={() => setDeliveryType('bazar')}>
-            <Store size={15} />
-            {t('modal.pickupBazar')}
-          </Option>
-          <Option active={deliveryType === '58'} onClick={() => setDeliveryType('58')}>
-            <Truck size={15} />
-            {t('modal.delivery58')}
-          </Option>
-        </OptionGroup>
-
-        <div className="mt-8 flex items-center justify-between border-y border-line py-5">
-          <span className="text-xs text-muted">{t('modal.displayedPrice')}</span>
-          <bdi dir="ltr" className="text-2xl font-bold tracking-[-.04em] text-ink">
-            {formatDzd(product.priceDzd, language)}
-          </bdi>
-        </div>
-
-        <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-5 flex min-h-14 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-white transition hover:bg-[#242428]"
-        >
-          <MessageCircle size={18} />
-          {t('modal.whatsappBtn')}
-        </a>
       </div>
     </div>
   );
